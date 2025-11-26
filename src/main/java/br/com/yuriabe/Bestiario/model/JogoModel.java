@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 // this class is an entity, persist data in database
 @Entity
 // the table associated in database
@@ -28,9 +30,12 @@ public class JogoModel {
     @Column(name = "titulo", length = 100, nullable = false)
     private String titulo;
 
-    @Column(name = "genero", length = 50)                                                                           // nulo
+    @Column(name = "genero", length = 50) // nulo
     private String genero;
-    
-    @Column(name = "estudio", length = 100)                                                                           // nulo
+
+    @Column(name = "estudio", length = 100) // nulo
     private String estudio;
+
+    @OneToMany(mappedBy = "jogo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InimigoModel> inimigos;
 }

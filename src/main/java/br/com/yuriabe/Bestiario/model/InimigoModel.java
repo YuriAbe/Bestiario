@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 // another way to define ecapsulating methods
-@Data
+
 public class InimigoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class InimigoModel {
     @NotNull
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
-    
+
     @Column(name = "especie", length = 100)
     private String especie;
 
@@ -33,7 +33,8 @@ public class InimigoModel {
     @Column(name = "ataque_especial", length = 150)
     private String ataque_especial;
 
-    // relacionamento - Muitos para Um | 1:N - Muitos Inimigos são associados com Um Jogo
+    // relacionamento - Muitos para Um | 1:N - Muitos Inimigos são associados com Um
+    // Jogo
     @ManyToOne
     // Join Column, or foreign key (chave estrangeira)
     @JoinColumn(name = "jogo_id")
