@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<!-- replacing the head with title -->
+
+<head th:replace="~{_layouts/base :: head(~{::title})}">
+    <title th:fragment="title">Aprendendo Spring</title>
+</head>
+
+<body>
+    <!-- replacing the main content -->
+    <main th:replace="~{_layouts/base :: layout(~{::content})}">
+        <div th:fragment="content">
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 600px">
+                <div>
+                    <!-- <img th:src="@{/img/spring-icon.svg}" style="width: 240px" class="p-2"> -->
+                    <h2 class="text-center">Bem vindos!</h2>
+                    <p>Esse será nosso futuro bestiário!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

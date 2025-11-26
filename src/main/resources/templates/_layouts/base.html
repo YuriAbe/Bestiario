@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<!--creates a fragment named 'head' that
+ receives a parameter 'title' -->
+
+<head th:fragment="head(title)">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- the title will be different according to specific page
+ the tag th:replace means it will be replaced in subpages -->
+    <title th:replace="${title}">App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <!-- defines a fragment name 'layout' that receives a
+ parameter 'content'. This parameter will be
+ replaced in subpages -->
+    <div class="container" th:fragment="layout(content)">
+        <header class="bg-primary text-white p-2">
+            <h1>Bestiarius - Crie sua coleção de monstros!</h1>
+        </header>
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Início</a></li>
+                <li><a class="nav-link" th:href="@{/inimigos}">Inimigos</a></li>
+                <li><a class="nav-link" th:href="@{/jogos}">Jogos</a></li>
+            </ul>
+        </nav>
+        <!-- the specific content goes here! -->
+        <main th:replace="${content}">
+        </main>
+        <footer class="bg-dark text-center text-white p-3">
+            <small>Aplicação desenvolvida com Spring</small>
+            <marquee> BESTIARIUS - THE BEST BESTIÁRIOS! - - - - - - - > Registre seus montros e criaturas das
+                profundezas... </marquee>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+        <!-- the fragment with JS that shows the toast -->
+        <div th:replace="~{_fragments/toast :: toast_script}"></div>
+    </div>
+</body>
+
+</html>

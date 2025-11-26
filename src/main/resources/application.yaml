@@ -1,0 +1,17 @@
+server:
+    port: 8888
+spring:
+    application:
+        name: Bestiario
+    mvc:
+        hiddenmethod:
+            filter:
+                enabled: true
+    datasource:
+        url: jdbc:postgresql://localhost:5432/bestiario?serverTimeZone=America/São_Paulo
+        username: postgres
+        password: postdba
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true

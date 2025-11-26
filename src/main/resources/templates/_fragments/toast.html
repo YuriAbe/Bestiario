@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <!-- Toast component, from Bootstrap 5. Main fragment: receive a parameter 'message' -->
+    <div th:fragment="toast(message)">
+        <div id="app-toast" class="toast align-items-center text-bg-primary border-0 position-fixed bottom-0 end-0 m-3"
+            role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <span th:text="${message}">MENSAGEM</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <!-- script fragment - to show or hide the toast.  include once in base layout -->
+    <div th:if="${message}" th:fragment="toast_script">
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const el = document.getElementById('app-toast');
+                console.log("Element:", el)
+                const t = new bootstrap.Toast(el, { delay: 4000 });
+                t.show();
+            });
+        </script>
+    </div>
+</body>
+
+</html>

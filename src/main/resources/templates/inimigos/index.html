@@ -1,0 +1,83 @@
+<!-- Singular vs. Plural: 
+No seu InimigoController, você retorna "inimigo/create" (singular). 
+Certifique-se de que o nome da pasta seja inimigo, e não inimigos. É uma convenção comum usar o plural
+para a listagem (inimigos/index) e o singular para as ações de um item (inimigo/create, inimigo/edit). 
+-->
+
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<!-- replacing the head with title -->
+
+<head th:replace="~{_layouts/base :: head(~{::title})}">
+    <title th:fragment="title">Inimigos</title>
+</head>
+
+<body>
+    <!-- replacing the main content -->
+    <main th:replace="~{_layouts/base :: layout(~{::content})}">
+        <div th:fragment="content">
+            <div style="min-height: 600px" class="p-3">
+                <h1 class="text-primary">Inimigos</h1>
+                <hr>
+                <a th:href="@{/inimigos/create}" class="btn btn-primary">Adicionar Inimigo</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Espécie</th>
+                            <th>Dificuldade</th>
+                            <th>Ataque Especial</th>
+                            <th>Jogo</th>
+                            <th colspan="6">Operações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- iterates the list (variable) received -->
+                        <tr th:each="inimigo : ${inimigos}">
+                            <td th:text="${inimigo.id}"></td>
+                            <td th:text="${inimigo.nome}"></td>
+                            <td th:text="${inimigo.especie}"></td>
+                            <td th:text="${inimigo.dificuldade}"></td>
+                            <td th:text="${inimigo.ataque_especial}"></td>
+                            <td th:text="${inimigo.jogo.titulo}"></td>
+                            <td><button class="btn btn-primary">Visualizar</button></td>
+                            <td>
+                                <a th:href="${'/inimigos/' + inimigo.id + '/edit'}" class="btn btn-info">Editar</a>
+                            </td>
+                            <td>
+                                <!-- Form to delete - the action direct to endpont to delete, and define the path variable -->
+                                <form class="delete-form" th:action="@{/inimigos/{id}(id=${inimigo.id})}" method="post">
+                                    <!-- hidden method to define the correct HTTP verb - delete. -->
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" class="btn btn-danger">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- fragment to show toast message -->
+            <div th:replace="~{_fragments/toast :: toast(${message})}"></div>
+        </div>
+    </main>
+</body>
+
+<!-- add the script to modal -->
+<script th:src="@{/js/modal.js}"></script>
+<!-- event listener to show the modal before submit -->
+<script>
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const confirm = await showConfirmModal("Confirme", "Deseja excluir esse Inimigo?");
+            if (confirm) {
+                form.submit();
+            }
+        })
+    })
+</script>
+
+</html>
