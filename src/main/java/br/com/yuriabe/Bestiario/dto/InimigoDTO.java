@@ -16,10 +16,10 @@ public class InimigoDTO {
 
     private String dificuldade;
 
-    private String ataqueEspecial;
+    private String ataque_especial;
 
     @NotNull(message = "O Jogo associado é obrigatório")
-    private Long jogoId;
+    private Long jogo_id;
 
-    private String jogoTitulo; // Para exibição na listagem/detalhe
+    private String jogo_titulo; // Para exibição na listagem/detalhe
 }

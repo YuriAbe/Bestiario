@@ -35,7 +35,8 @@ public class InimigoModel {
 
     // relacionamento - Muitos para Um | 1:N - Muitos Inimigos são associados com Um
     // Jogo
-    @ManyToOne
+    // @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     // Join Column, or foreign key (chave estrangeira)
     @JoinColumn(name = "jogo_id")
     private JogoModel jogo;

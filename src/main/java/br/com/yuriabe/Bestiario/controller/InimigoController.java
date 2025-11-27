@@ -47,15 +47,15 @@ public class InimigoController {
 
     @PostMapping
     public String save(@Valid @ModelAttribute("inimigo") InimigoDTO inimigoDTO,
-            BindingResult result, // Adicionado BindingResult para validação
+            BindingResult result,
+            Model model,
             RedirectAttributes redirectAttributes) {
-        
+
         if (result.hasErrors()) {
-            // Se houver erros de validação, retorna para o formulário
-            // É necessário adicionar a lista de jogos novamente
+            model.addAttribute("jogos", jogoRepository.findAll());
             return "inimigos/create";
         }
-        
+
         inimigoService.save(inimigoDTO);
         redirectAttributes.addFlashAttribute("message", "Inimigo salvo com sucesso!");
         return "redirect:/inimigos";
@@ -65,25 +65,25 @@ public class InimigoController {
     public ModelAndView edit(@PathVariable long id) {
         // Busca o DTO
         InimigoDTO inimigoDTO = inimigoService.findById(id);
-        
+
         ModelAndView mv = new ModelAndView("inimigos/edit"); // Corrigido para "inimigos/edit"
         mv.addObject("inimigo", inimigoDTO);
         mv.addObject("jogos", jogoRepository.findAll());
         return mv;
     }
 
-    @PostMapping("/{id}") // Mudança para POST para lidar com o PUT via HiddenHttpMethodFilter
+    @PostMapping("/{id}")
     public String update(@PathVariable long id,
             @Valid @ModelAttribute("inimigo") InimigoDTO inimigoDTO,
             BindingResult result,
+            Model model,
             RedirectAttributes redirectAttributes) {
-        
+
         if (result.hasErrors()) {
-            // Se houver erros de validação, retorna para o formulário
-            // É necessário adicionar a lista de jogos novamente
+            model.addAttribute("jogos", jogoRepository.findAll());
             return "inimigos/edit";
         }
-        
+
         inimigoService.update(id, inimigoDTO);
         redirectAttributes.addFlashAttribute("message", "Inimigo atualizado com sucesso!");
         return "redirect:/inimigos";

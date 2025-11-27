@@ -40,7 +40,7 @@ para a listagem (inimigos/index) e o singular para as ações de um item (inimig
                             <td th:text="${inimigo.especie}"></td>
                             <td th:text="${inimigo.dificuldade}"></td>
                             <td th:text="${inimigo.ataque_especial}"></td>
-                            <td th:text="${inimigo.jogo.titulo}"></td>
+                            <td th:text="${inimigo.jogo_titulo}"></td>
                             <td><button class="btn btn-primary">Visualizar</button></td>
                             <td>
                                 <a th:href="${'/inimigos/' + inimigo.id + '/edit'}" class="btn btn-info">Editar</a>
