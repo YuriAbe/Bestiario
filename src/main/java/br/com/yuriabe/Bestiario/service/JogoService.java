@@ -5,6 +5,9 @@ import br.com.yuriabe.Bestiario.exceptions.ResourceNotFoundException;
 import br.com.yuriabe.Bestiario.model.JogoModel;
 import br.com.yuriabe.Bestiario.repository.JogoRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -87,4 +90,13 @@ public class JogoService {
         }
         jogoRepository.delete(model);
     }
+
+    // ADCIONANDO A PAGINAÇÃO
+    public Page<JogoDTO> findPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("titulo").ascending());
+
+        return jogoRepository.findAll(pageable)
+                .map(this::toDTO);
+    }
+
 }

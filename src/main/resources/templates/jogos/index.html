@@ -65,6 +65,38 @@
                 </table>
             </div>
 
+            <!-- Implementando a Paginação -->
+            <div class="d-flex justify-content-center mt-4">
+                <nav>
+                    <ul class="pagination">
+
+                        <!-- Botão Anterior -->
+                        <li class="page-item" th:classappend="${pagina.first} ? 'disabled'">
+                            <a class="page-link" th:href="@{/jogos(page=${pagina.number - 1}, size=${pagina.size})}">
+                                Anterior
+                            </a>
+                        </li>
+
+                        <!-- Números -->
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, pagina.totalPages - 1)}"
+                            th:classappend="${pagina.number == i} ? 'active'">
+                            <a class="page-link" th:text="${i + 1}" th:href="@{/jogos(page=${i}, size=${pagina.size})}">
+                            </a>
+                        </li>
+
+                        <!-- Próximo -->
+                        <li class="page-item" th:classappend="${pagina.last} ? 'disabled'">
+                            <a class="page-link" th:href="@{/jogos(page=${pagina.number + 1}, size=${pagina.size})}">
+                                Próximo
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Fim - Paginação -->
+
             <!-- Implementando o Modal -->
             <div class="modal fade" id="modalJogo" tabindex="-1">
                 <div class="modal-dialog">

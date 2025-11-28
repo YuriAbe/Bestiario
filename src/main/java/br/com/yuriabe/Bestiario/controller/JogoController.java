@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.data.domain.Page; // Import para a paginação
 
 @Controller
 @RequestMapping("/jogos")
@@ -20,9 +21,17 @@ public class JogoController {
 
     private final JogoService jogoService;
 
+    // ADICIONANDO PÁGINAÇÃO COM O NOVO CÓDIGO 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("jogos", jogoService.findAll());
+    public String index(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            Model model) {
+        Page<JogoDTO> pagina = jogoService.findPage(page, size);
+
+        model.addAttribute("pagina", pagina);
+        model.addAttribute("jogos", pagina.getContent());
+
         return "jogos/index";
     }
 
@@ -92,5 +101,4 @@ public class JogoController {
         JogoDTO dto = jogoService.findById(id);
         return ResponseEntity.ok(dto);
     }
-
 }
