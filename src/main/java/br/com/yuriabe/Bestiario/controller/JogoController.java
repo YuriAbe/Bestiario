@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,8 +34,14 @@ public class JogoController {
     @PostMapping
     public String save(
             @Valid @ModelAttribute("jogo") JogoDTO jogoDTO,
+            BindingResult result,
             RedirectAttributes redirectAttributes,
             Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("jogo", jogoDTO);
+            return "jogos/create";
+        }
 
         jogoService.save(jogoDTO);
         redirectAttributes.addFlashAttribute("message", "Jogo salvo com sucesso!");
@@ -52,7 +59,14 @@ public class JogoController {
     public String update(
             @PathVariable Long id,
             @Valid @ModelAttribute("jogo") JogoDTO jogoDTO,
+            BindingResult result,
+            Model model,
             RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("jogo", jogoDTO);
+            return "jogos/edit";
+        }
 
         jogoService.update(id, jogoDTO);
         redirectAttributes.addFlashAttribute("message", "Jogo atualizado com sucesso!");

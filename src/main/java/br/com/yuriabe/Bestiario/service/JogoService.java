@@ -15,7 +15,12 @@ public class JogoService {
 
     private final JogoRepository jogoRepository;
 
-    // ✔️ Converter Model → DTO
+    /*
+     * --------------------------
+     * Conversores (Model <-> DTO)
+     * --------------------------
+     */
+
     private JogoDTO toDTO(JogoModel model) {
         JogoDTO dto = new JogoDTO();
         dto.setId(model.getId());
@@ -25,17 +30,26 @@ public class JogoService {
         return dto;
     }
 
-    // ✔️ Converter DTO → Model
     private JogoModel toModel(JogoDTO dto) {
         JogoModel model = new JogoModel();
-        model.setId(dto.getId());
+
+        if (dto.getId() != null) {
+            model.setId(dto.getId());
+        }
+
         model.setTitulo(dto.getTitulo());
         model.setGenero(dto.getGenero());
         model.setEstudio(dto.getEstudio());
         return model;
     }
 
-    // ✔️ LISTAR TODOS
+    /*
+     * ------------
+     * CRUD MÉTODOS
+     * ------------
+     */
+
+    // ✔ LISTAR TODOS
     public List<JogoDTO> findAll() {
         return jogoRepository.findAll()
                 .stream()
@@ -43,22 +57,23 @@ public class JogoService {
                 .toList();
     }
 
-    // ✔️ BUSCAR POR ID
+    // ✔ BUSCAR POR ID
     public JogoDTO findById(Long id) {
         JogoModel model = jogoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado!"));
         return toDTO(model);
     }
 
-    // ✔️ CREATE (SALVAR)
+    // ✔ SALVAR (CREATE)
     public JogoDTO save(JogoDTO dto) {
         JogoModel model = toModel(dto);
         JogoModel saved = jogoRepository.save(model);
         return toDTO(saved);
     }
 
-    // ✔️ UPDATE
+    // ✔ ATUALIZAR (UPDATE)
     public JogoDTO update(Long id, JogoDTO dto) {
+
         JogoModel existing = jogoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado!"));
 
@@ -70,12 +85,10 @@ public class JogoService {
         return toDTO(updated);
     }
 
-    // ✔️ DELETE
+    // ✔ DELETAR
     public void delete(Long id) {
         JogoModel model = jogoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado!"));
-
         jogoRepository.delete(model);
     }
-
 }

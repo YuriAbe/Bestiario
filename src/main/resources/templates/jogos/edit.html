@@ -1,41 +1,57 @@
 <!doctype html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<!-- replacing the head with title -->
 
 <head th:replace="~{_layouts/base :: head(~{::title})}">
-    <title th:fragment="title">Novo Jogo</title>
+    <title th:fragment="title">Editar Jogo</title>
 </head>
 
 <body>
-    <!-- replacing the main content -->
     <main th:replace="~{_layouts/base :: layout(~{::content})}">
         <div th:fragment="content">
-            <div style="min-height: 600px" class="p-3">
-                <!-- end-point to update, inform the parameter -->
-                <!-- the object binding to form -->
+
+            <div class="p-3" style="min-height: 600px;">
+
+                <h2 class="text-primary mb-3">Editar Jogo</h2>
+
                 <form th:action="@{/jogos/{id}(id=${jogo.id})}" th:object="${jogo}" method="post" class="row g-3">
-                    <!-- input hidden, to store the id -->
 
-                    <!-- show the current data, binding the field to object received -->
-                    <input type="hidden" th:if="*{id} != null" name="_method" value="put">
+                    <!-- Hidden para método PUT -->
+                    <!-- <input type="hidden" name="_method" value="put"> -->
 
+                    <!-- Campo: Título -->
                     <div class="col-md-6">
-                        <label class="form-label">Titulo</label>
-                        <input type="text" class="form-control" th:field="*{titulo}" required>
+                        <label class="form-label">Título</label>
+                        <input type="text" class="form-control" th:field="*{titulo}">
 
-                        <label class="form-label">Gênero</label>
-                        <input type="text" class="form-control" th:field="*{genero}" required>
-
-                        <label class="form-label">Estúdio</label>
-                        <input type="text" class="form-control" th:field="*{estudio}" required>
+                        <div class="text-danger" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- Campo: Gênero -->
+                    <div class="col-md-6">
+                        <label class="form-label">Gênero</label>
+                        <input type="text" class="form-control" th:field="*{genero}">
+
+                        <div class="text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></div>
+                    </div>
+
+                    <!-- Campo: Estúdio -->
+                    <div class="col-md-6">
+                        <label class="form-label">Estúdio</label>
+                        <input type="text" class="form-control" th:field="*{estudio}">
+
+                        <div class="text-danger" th:if="${#fields.hasErrors('estudio')}" th:errors="*{estudio}"></div>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="col-12 mt-3">
                         <button class="btn btn-primary" type="submit">Atualizar</button>
                         <a th:href="@{/jogos}" class="btn btn-secondary">Cancelar</a>
                     </div>
+
                 </form>
+
             </div>
+
         </div>
     </main>
 </body>
