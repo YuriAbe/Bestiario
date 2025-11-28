@@ -2,23 +2,23 @@ function showConfirmModal(title, message) {
   return new Promise((resolve) => {
     // Crates the HTML of modal
     const modalHtml = `
- <div class="modal fade" tabindex="-1">
- <div class="modal-dialog">
- <div class="modal-content">
- <div class="modal-header">
- <h5 class="modal-title">${title}</h5>
- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
- </div>
- <div class="modal-body">
- <p>${message}</p>
- </div>
- <div class="modal-footer">
- <button type="button" class="btn btn-secondary" data-action="cancel">Cancelar</button>
- <button type="button" class="btn btn-warning" data-action="ok">OK</button>
- </div>
- </div>
- </div>
- </div>`;
+        <div class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">${title}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>${message}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-action="cancel">Cancelar</button>
+                        <button type="button" class="btn btn-warning" data-action="ok">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
     // Converts string into DOM element
     const wrapper = document.createElement("div");
     wrapper.innerHTML = modalHtml;

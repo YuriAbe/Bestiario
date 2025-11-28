@@ -6,6 +6,7 @@ import br.com.yuriabe.Bestiario.repository.JogoRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -101,4 +102,12 @@ public class InimigoController {
         redirectAttributes.addFlashAttribute("message", "Inimigo excluído com sucesso!");
         return "redirect:/inimigos";
     }
+
+    // Método SHOW para exibir modal com detalhes do Inimigo
+    @GetMapping("/{id}")
+    public ResponseEntity<InimigoDTO> show(@PathVariable Long id) {
+        InimigoDTO dto = inimigoService.findById(id);
+        return ResponseEntity.ok(dto);
+    }
+
 }

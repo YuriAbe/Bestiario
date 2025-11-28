@@ -33,7 +33,12 @@
                             <td th:text="${inimigo.dificuldade}"></td>
                             <td th:text="${inimigo.ataque_especial}"></td>
                             <td th:text="${inimigo.jogo_titulo}"></td>
-                            <td><button class="btn btn-primary">Visualizar</button></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm btn-visualizar" th:attr="data-id=${inimigo.id}">
+                                    Visualizar
+                                </button>
+                            </td>
+
                             <td>
                                 <a th:href="${'/inimigos/' + inimigo.id + '/edit'}" class="btn btn-info">Editar</a>
                             </td>
@@ -51,25 +56,39 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Implementando o Modal -->
+            <div class="modal fade" id="modalInimigo" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Detalhes do Inimigo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Nome:</strong> <span id="modal-nome"></span></p>
+                            <p><strong>Espécie:</strong> <span id="modal-especie"></span></p>
+                            <p><strong>Dificuldade:</strong> <span id="modal-dificuldade"></span></p>
+                            <p><strong>Ataque Especial:</strong> <span id="modal-ataque"></span></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--  Fim - Modal -->
+
             <!-- fragment to show toast message -->
             <div th:replace="~{_fragments/toast :: toast(${message})}"></div>
         </div>
-    </main>
-</body>
 
-<!-- add the script to modal -->
-<script th:src="@{/js/modal.js}"></script>
-<!-- event listener to show the modal before submit -->
-<script>
-    document.querySelectorAll('.delete-form').forEach(form => {
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const confirm = await showConfirmModal("Confirme", "Deseja excluir esse Inimigo?");
-            if (confirm) {
-                form.submit();
-            }
-        })
-    })
-</script>
+    </main>
+
+    <!-- add the script to modal -->
+    <script th:src="@{/js/modal.js}"></script>
+    <script th:src="@{/js/inimigo-visualizar.js}"></script>
+    <script th:src="@{/js/conf-del-inimigo.js}"></script>
+</body>
 
 </html>
