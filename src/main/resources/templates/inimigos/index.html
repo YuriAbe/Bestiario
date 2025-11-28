@@ -1,19 +1,11 @@
-<!-- Singular vs. Plural: 
-No seu InimigoController, você retorna "inimigo/create" (singular). 
-Certifique-se de que o nome da pasta seja inimigo, e não inimigos. É uma convenção comum usar o plural
-para a listagem (inimigos/index) e o singular para as ações de um item (inimigo/create, inimigo/edit). 
--->
-
 <!doctype html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<!-- replacing the head with title -->
 
 <head th:replace="~{_layouts/base :: head(~{::title})}">
     <title th:fragment="title">Inimigos</title>
 </head>
 
 <body>
-    <!-- replacing the main content -->
     <main th:replace="~{_layouts/base :: layout(~{::content})}">
         <div th:fragment="content">
             <div style="min-height: 600px" class="p-3">

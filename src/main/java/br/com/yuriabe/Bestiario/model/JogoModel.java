@@ -25,15 +25,14 @@ public class JogoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // this attribute is a String, not null and max-length 50
     @NotNull
     @Column(name = "titulo", length = 100, nullable = false)
     private String titulo;
 
-    @Column(name = "genero", length = 50) // nulo
+    @Column(name = "genero", length = 50)
     private String genero;
 
-    @Column(name = "estudio", length = 100) // nulo
+    @Column(name = "estudio", length = 100)
     private String estudio;
 
     @OneToMany(mappedBy = "jogo", cascade = CascadeType.ALL, orphanRemoval = true)

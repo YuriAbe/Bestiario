@@ -15,12 +15,7 @@ public class JogoService {
 
     private final JogoRepository jogoRepository;
 
-    /*
-     * --------------------------
-     * Conversores (Model <-> DTO)
-     * --------------------------
-     */
-
+    // ✔️️ Converter Model → DTO
     private JogoDTO toDTO(JogoModel model) {
         JogoDTO dto = new JogoDTO();
         dto.setId(model.getId());
@@ -30,9 +25,11 @@ public class JogoService {
         return dto;
     }
 
+    // ✔️️ Converter DTO → Model
     private JogoModel toModel(JogoDTO dto) {
         JogoModel model = new JogoModel();
 
+        // ❌ Nunca setar ID no create, ✔️️ Só seta ID se não for null (ou seja, no UPDATE)
         if (dto.getId() != null) {
             model.setId(dto.getId());
         }
@@ -43,13 +40,7 @@ public class JogoService {
         return model;
     }
 
-    /*
-     * ------------
-     * CRUD MÉTODOS
-     * ------------
-     */
-
-    // ✔ LISTAR TODOS
+    // ✔️ LISTAR TODOS
     public List<JogoDTO> findAll() {
         return jogoRepository.findAll()
                 .stream()
@@ -57,21 +48,21 @@ public class JogoService {
                 .toList();
     }
 
-    // ✔ BUSCAR POR ID
+    // ✔️ BUSCAR POR ID
     public JogoDTO findById(Long id) {
         JogoModel model = jogoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado!"));
         return toDTO(model);
     }
 
-    // ✔ SALVAR (CREATE)
+    // ✔️ SALVAR (CREATE)
     public JogoDTO save(JogoDTO dto) {
         JogoModel model = toModel(dto);
         JogoModel saved = jogoRepository.save(model);
         return toDTO(saved);
     }
 
-    // ✔ ATUALIZAR (UPDATE)
+    // ✔️ ATUALIZAR (UPDATE)
     public JogoDTO update(Long id, JogoDTO dto) {
 
         JogoModel existing = jogoRepository.findById(id)
@@ -85,7 +76,7 @@ public class JogoService {
         return toDTO(updated);
     }
 
-    // ✔ DELETAR
+    // ✔️ DELETAR
     public void delete(Long id) {
         JogoModel model = jogoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado!"));

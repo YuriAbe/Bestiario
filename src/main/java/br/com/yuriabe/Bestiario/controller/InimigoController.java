@@ -2,7 +2,7 @@ package br.com.yuriabe.Bestiario.controller;
 
 import br.com.yuriabe.Bestiario.dto.InimigoDTO;
 import br.com.yuriabe.Bestiario.service.InimigoService;
-import br.com.yuriabe.Bestiario.repository.JogoRepository; // Ainda necessário para popular o dropdown
+import br.com.yuriabe.Bestiario.repository.JogoRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class InimigoController {
     // method get, to return a view
     @GetMapping("/create")
     public ModelAndView create() {
-        ModelAndView mv = new ModelAndView("inimigos/create"); // Corrigido para "inimigos/create"
+        ModelAndView mv = new ModelAndView("inimigos/create");
         mv.addObject("inimigo", new InimigoDTO()); // Passa um DTO vazio
         mv.addObject("jogos", jogoRepository.findAll()); // Lista de JogoModel para o dropdown
         return mv;
@@ -57,7 +57,7 @@ public class InimigoController {
             RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
-            model.addAttribute("inimigo", inimigoDTO); // ✔️ faltava isso!
+            model.addAttribute("inimigo", inimigoDTO);
             model.addAttribute("jogos", jogoRepository.findAll());
             return "inimigos/create";
         }
@@ -72,7 +72,7 @@ public class InimigoController {
         // Busca o DTO
         InimigoDTO inimigoDTO = inimigoService.findById(id);
 
-        ModelAndView mv = new ModelAndView("inimigos/edit"); // Corrigido para "inimigos/edit"
+        ModelAndView mv = new ModelAndView("inimigos/edit");
         mv.addObject("inimigo", inimigoDTO);
         mv.addObject("jogos", jogoRepository.findAll());
         return mv;

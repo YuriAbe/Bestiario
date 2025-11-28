@@ -15,7 +15,6 @@
 
                 <form th:action="@{/jogos}" th:object="${jogo}" method="post" class="row g-3">
 
-                    <!-- Campo: Título -->
                     <div class="col-md-6">
                         <label class="form-label">Título</label>
                         <input type="text" class="form-control" th:field="*{titulo}"
@@ -24,7 +23,6 @@
                         <div class="text-danger" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
                     </div>
 
-                    <!-- Campo: Gênero -->
                     <div class="col-md-6">
                         <label class="form-label">Gênero</label>
                         <input type="text" class="form-control" th:field="*{genero}"
@@ -33,7 +31,6 @@
                         <div class="text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></div>
                     </div>
 
-                    <!-- Campo: Estúdio -->
                     <div class="col-md-6">
                         <label class="form-label">Estúdio</label>
                         <input type="text" class="form-control" th:field="*{estudio}"
@@ -42,7 +39,6 @@
                         <div class="text-danger" th:if="${#fields.hasErrors('estudio')}" th:errors="*{estudio}"></div>
                     </div>
 
-                    <!-- Botões -->
                     <div class="col-12 mt-3">
                         <button class="btn btn-primary" type="submit">Salvar</button>
                         <a class="btn btn-secondary" th:href="@{/jogos}">Cancelar</a>

@@ -1,23 +1,17 @@
 <!doctype html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<!-- replacing the head with title -->
 
 <head th:replace="~{_layouts/base :: head(~{::title})}">
     <title th:fragment="title">Novo Inimigo</title>
 </head>
 
 <body>
-    <!-- replacing the main content -->
+    
     <main th:replace="~{_layouts/base :: layout(~{::content})}">
         <div th:fragment="content">
             <div style="min-height: 600px" class="p-3">
-                <!-- end-point to update, inform the parameter -->
-                <!-- the object binding to form -->
+
                 <form th:action="@{/inimigos/{id}(id=${inimigo.id})}" th:object="${inimigo}" method="post" class="row g-3">
-                    <!-- input hidden, to store the id -->
-                    <!-- <input type="hidden" th:field="*{id}"> -->
-                    <!-- show the current data, binding the field to object received -->
-                    <!-- <input type="hidden" th:if="*{id} != null" name="_method" value="put"> / Devo remover essa linha-->
 
                     <div class="col-md-6">
                         <label class="form-label">Nome</label>

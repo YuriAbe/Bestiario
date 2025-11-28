@@ -13,7 +13,6 @@
                 <h1 class="text-primary">Jogos</h1>
                 <hr>
 
-                <!-- Botão adicionar -->
                 <a th:href="@{/jogos/create}" class="btn btn-primary mb-3">Adicionar Jogo</a>
 
                 <!-- Tabela de Jogos -->
@@ -43,14 +42,12 @@
                                 </button>
                             </td>
 
-                            <!-- Botão editar -->
                             <td class="text-center">
                                 <a th:href="@{/jogos/{id}/edit(id=${jogo.id})}" class="btn btn-info btn-sm">
                                     Editar
                                 </a>
                             </td>
 
-                            <!-- Botão excluir -->
                             <td class="text-center">
                                 <form th:action="@{/jogos/{id}(id=${jogo.id})}" method="post"
                                     class="delete-form d-inline">

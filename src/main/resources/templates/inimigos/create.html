@@ -1,44 +1,35 @@
 <!doctype html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<!-- replacing the head with title -->
 
 <head th:replace="~{_layouts/base :: head(~{::title})}">
     <title th:fragment="title">Novo Inimigo</title>
 </head>
 
 <body>
-    <!-- replacing the main content -->
     <main th:replace="~{_layouts/base :: layout(~{::content})}">
         <div th:fragment="content">
             <div style="min-height: 600px" class="p-3">
-                <!-- method post - object name is the same of controller, product!
-action directing to endpoint to save -->
+
                 <form th:action="@{/inimigos}" th:object="${inimigo}" method="post" class="row g-3">
                     <input type="hidden" th:field="*{id}" th:if="*{id} != null" />
                     <div class="col-md-6">
                         <label class="form-label">Nome</label>
-                        <!--the field is the same name of object attribute -->
                         <input type="text" class="form-control" th:field="*{nome}" required>
-                        
+
                         <label class="form-label">Espécie</label>
-                        <!--the field is the same name of object attribute -->
                         <input type="text" class="form-control" th:field="*{especie}" required>
 
                         <label class="form-label">Dificuldade</label>
-                        <!--the field is the same name of object attribute -->
                         <input type="text" class="form-control" th:field="*{dificuldade}" required>
 
                         <label class="form-label">Ataque Especial</label>
-                        <!--the field is the same name of object attribute -->
                         <input type="text" class="form-control" th:field="*{ataque_especial}" required>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Jogo</label>
-                        <!-- select to show the categories -->
                         <select class="form-select" th:field="*{jogo_id}" required>
                             <option value="" disabled selected>Selecione...</option>
-                            <!-- iterates over the categories -->
                             <option th:each="jogo : ${jogos}" th:value="${jogo.id}" th:text="${jogo.titulo}"></option>
                         </select>
                     </div>

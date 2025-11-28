@@ -44,8 +44,7 @@ public class InimigoService {
 
         InimigoModel model = new InimigoModel();
 
-        // ❌ Nunca setar ID no create, ✔️ Só seta ID se não for null (ou seja, no
-        // UPDATE)
+        // ❌ Nunca setar ID no create, ✔️ Só seta ID se não for null (ou seja, no UPDATE)
         if (dto.getId() != null) {
             model.setId(dto.getId());
         }
