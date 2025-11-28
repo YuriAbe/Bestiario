@@ -14,16 +14,20 @@
                     <input type="hidden" th:field="*{id}" th:if="*{id} != null" />
                     <div class="col-md-6">
                         <label class="form-label">Nome</label>
-                        <input type="text" class="form-control" th:field="*{nome}" required>
+                        <input type="text" class="form-control" th:field="*{nome}"
+                            placeholder="Ex: Cãocrodilo, Predator, AlienX" required>
 
                         <label class="form-label">Espécie</label>
-                        <input type="text" class="form-control" th:field="*{especie}" required>
+                        <input type="text" class="form-control" th:field="*{especie}"
+                            placeholder="Ex: Monstro, Predador, Alien" required>
 
                         <label class="form-label">Dificuldade</label>
-                        <input type="text" class="form-control" th:field="*{dificuldade}" required>
+                        <input type="text" class="form-control" th:field="*{dificuldade}"
+                            placeholder="Ex: Fácil, Médio, Difícil" required>
 
                         <label class="form-label">Ataque Especial</label>
-                        <input type="text" class="form-control" th:field="*{ataque_especial}" required>
+                        <input type="text" class="form-control" th:field="*{ataque_especial}"
+                            placeholder="Ex: Mordida Aligator, Predar, Abduzir" required>
                     </div>
 
                     <div class="col-md-6">
@@ -33,9 +37,10 @@
                             <option th:each="jogo : ${jogos}" th:value="${jogo.id}" th:text="${jogo.titulo}"></option>
                         </select>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 mt-3">
                         <button class="btn btn-primary" type="submit">Salvar</button>
                         <button class="btn btn-secondary" type="reset">Limpar</button>
+                        <a class="btn btn-secondary" th:href="@{/jogos}">Cancelar</a>
                     </div>
                 </form>
             </div>

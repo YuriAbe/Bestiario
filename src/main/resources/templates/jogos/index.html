@@ -70,4 +70,19 @@
     </main>
 </body>
 
+<!-- add the script to modal -->
+<script th:src="@{/js/modal.js}"></script>
+<!-- event listener to show the modal before submit -->
+<script>
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const confirm = await showConfirmModal("Confirme", "Deseja excluir esse Inimigo?");
+            if (confirm) {
+                form.submit();
+            }
+        })
+    })
+</script>
+
 </html>
