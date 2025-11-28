@@ -39,26 +39,36 @@ public class InimigoService {
         return dto;
     }
 
-    // ✔️ Converter DTO → Model
-    public InimigoModel toModel(InimigoDTO dto) {
-        InimigoModel model = new InimigoModel();
+    // ✔️ Converter DTO → Model 
+public InimigoModel toModel(InimigoDTO dto) {
 
+    InimigoModel model = new InimigoModel();
+
+    // ❌ Nunca setar ID no create, ✔️ Só seta ID se não for null (ou seja, no UPDATE)
+    if (dto.getId() != null) {
         model.setId(dto.getId());
-        model.setNome(dto.getNome());
-        model.setEspecie(dto.getEspecie());
-        model.setDificuldade(dto.getDificuldade());
-        model.setAtaque_especial(dto.getAtaque_especial());
-
-        if (dto.getJogo_id() != null) {
-            JogoModel jogo = jogoRepository.findById(dto.getJogo_id())
-                    .orElseThrow(() -> new ResourceNotFoundException(
-                            "Jogo não encontrado com ID: " + dto.getJogo_id()));
-
-            model.setJogo(jogo);
-        }
-
-        return model;
     }
+
+    model.setNome(dto.getNome());
+    model.setEspecie(dto.getEspecie());
+    model.setDificuldade(dto.getDificuldade());
+    model.setAtaque_especial(dto.getAtaque_especial());
+
+    // ✔️ Jogo obrigatório
+    if (dto.getJogo_id() == null) {
+        throw new RuntimeException("O jogo é obrigatório");
+    }
+
+    // ✔️ Buscar e associar jogo
+    JogoModel jogo = jogoRepository.findById(dto.getJogo_id())
+            .orElseThrow(() -> new ResourceNotFoundException(
+                    "Jogo não encontrado com ID: " + dto.getJogo_id()));
+
+    model.setJogo(jogo);
+
+    return model;
+}
+
 
     // ✔️ LISTAR TODOS
     public List<InimigoDTO> findAll() {
