@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br">
 
 <head>
-    <title>Ocorreu um Erro</title>
+    <meta charset="UTF-8">
+    <title>Erro interno</title>
 </head>
 
 <body>
-    <h1>Algo deu errado!</h1>
-    <p>Desculpe, um erro inesperado ocorreu.</p>
-    <!-- Você pode adicionar mais detalhes do erro se quiser, usando o Thymeleaf -->
-    <p th:text="${'Status: ' + status}"></p>
-    <p th:text="${'Erro: ' + error}"></p>
+    <h1>Ocorreu um erro</h1>
+
+    <p th:text="${error.message}">Erro desconhecido</p>
+
+    <a href="/">Voltar ao início</a>
 </body>
 
 </html>

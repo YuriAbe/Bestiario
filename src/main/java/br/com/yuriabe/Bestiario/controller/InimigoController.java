@@ -36,6 +36,12 @@ public class InimigoController {
         return "inimigos/index";
     }
 
+    // Testando erro 500
+    @GetMapping("/teste-erro")
+    public String testeErro() {
+        throw new RuntimeException("Erro proposital para teste");
+    }
+
     // method get, to return a view
     @GetMapping("/create")
     public ModelAndView create() {
@@ -52,6 +58,7 @@ public class InimigoController {
             RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
+            model.addAttribute("inimigo", inimigoDTO); // ✔️ faltava isso!
             model.addAttribute("jogos", jogoRepository.findAll());
             return "inimigos/create";
         }

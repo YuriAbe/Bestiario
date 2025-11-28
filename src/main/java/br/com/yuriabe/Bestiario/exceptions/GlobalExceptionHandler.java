@@ -20,9 +20,10 @@ public class GlobalExceptionHandler {
             message = "Página ou arquivo não encontrado!";
             redirectTo = "error404";
         } else {
-            message = ex.getMessage();
+            message = ex.getMessage() != null ? ex.getMessage() : "Ocorreu um erro inesperado.";
             redirectTo = "error";
         }
+
         CustomExceptionResponse response = new CustomExceptionResponse(new Date(),
                 message, request.getDescription(true));
         // add the model atribute, a data to show
