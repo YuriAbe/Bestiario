@@ -75,8 +75,13 @@ public class JogoController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        jogoService.delete(id);
-        redirectAttributes.addFlashAttribute("message", "Jogo excluído com sucesso!");
+        try {
+            jogoService.delete(id);
+            redirectAttributes.addFlashAttribute("message", "Jogo excluído com sucesso!");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
         return "redirect:/jogos";
     }
+
 }

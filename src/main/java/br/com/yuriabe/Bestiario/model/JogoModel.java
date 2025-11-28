@@ -35,6 +35,6 @@ public class JogoModel {
     @Column(name = "estudio", length = 100)
     private String estudio;
 
-    @OneToMany(mappedBy = "jogo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "jogo")
     private List<InimigoModel> inimigos;
 }

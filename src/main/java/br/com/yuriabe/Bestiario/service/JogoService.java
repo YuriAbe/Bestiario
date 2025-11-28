@@ -29,7 +29,8 @@ public class JogoService {
     private JogoModel toModel(JogoDTO dto) {
         JogoModel model = new JogoModel();
 
-        // ❌ Nunca setar ID no create, ✔️️ Só seta ID se não for null (ou seja, no UPDATE)
+        // ❌ Nunca setar ID no create, ✔️️ Só seta ID se não for null (ou seja, no
+        // UPDATE)
         if (dto.getId() != null) {
             model.setId(dto.getId());
         }
@@ -80,6 +81,10 @@ public class JogoService {
     public void delete(Long id) {
         JogoModel model = jogoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado!"));
+        if (!model.getInimigos().isEmpty()) {
+            throw new IllegalStateException(
+                    "Não é possível excluir um jogo enquanto existirem inimigos associados a ele.");
+        }
         jogoRepository.delete(model);
     }
 }
