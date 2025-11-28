@@ -4,6 +4,8 @@ import br.com.yuriabe.Bestiario.dto.JogoDTO;
 import br.com.yuriabe.Bestiario.service.JogoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,6 +84,13 @@ public class JogoController {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
         return "redirect:/jogos";
+    }
+
+    // Método SHOW para exibir modal com detalhes do Jogo
+    @GetMapping("/{id}")
+    public ResponseEntity<JogoDTO> show(@PathVariable Long id) {
+        JogoDTO dto = jogoService.findById(id);
+        return ResponseEntity.ok(dto);
     }
 
 }

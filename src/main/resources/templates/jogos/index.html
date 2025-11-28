@@ -1,93 +1,101 @@
-    <!doctype html>
-    <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="~{_layouts/base :: head(~{::title})}">
-        <title th:fragment="title">Jogos</title>
-    </head>
+<head th:replace="~{_layouts/base :: head(~{::title})}">
+    <title th:fragment="title">Jogos</title>
+</head>
 
-    <body>
-        <main th:replace="~{_layouts/base :: layout(~{::content})}">
-            
-            <div th:fragment="content">
-                
-                <!-- Adicionando notificação de suceeso/erro ao excluir jogo com inimigos associados -->
-                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-                <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+<body>
+    <main th:replace="~{_layouts/base :: layout(~{::content})}">
 
-                <div class="p-3" style="min-height: 600px;">
-                    <h1 class="text-primary">Jogos</h1>
-                    <hr>
+        <div th:fragment="content">
 
-                    <a th:href="@{/jogos/create}" class="btn btn-primary mb-3">Adicionar Jogo</a>
+            <!-- Adicionando notificação de suceeso/erro ao excluir jogo com inimigos associados -->
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
 
-                    <!-- Tabela de Jogos -->
-                    <table class="table table-striped table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Gênero</th>
-                                <th>Estúdio</th>
-                                <th class="text-center" colspan="3">Operações</th>
-                            </tr>
-                        </thead>
+            <div class="p-3" style="min-height: 600px;">
+                <h1 class="text-primary">Jogos</h1>
+                <hr>
 
-                        <tbody>
-                            <tr th:each="jogo : ${jogos}">
-                                <td th:text="${jogo.id}"></td>
-                                <td th:text="${jogo.titulo}"></td>
-                                <td th:text="${jogo.genero}"></td>
-                                <td th:text="${jogo.estudio}"></td>
+                <a th:href="@{/jogos/create}" class="btn btn-primary mb-3">Adicionar Jogo</a>
 
-                                <!-- Botão visualizar (ficará funcional após AJAX + modal) -->
-                                <td class="text-center">
-                                    <button class="btn btn-secondary btn-sm" type="button" disabled
-                                        title="Implementaremos futuramente com AJAX + Modal">
-                                        Visualizar
+                <!-- Tabela de Jogos -->
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Gênero</th>
+                            <th>Estúdio</th>
+                            <th class="text-center" colspan="3">Operações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="jogo : ${jogos}">
+                            <td th:text="${jogo.id}"></td>
+                            <td th:text="${jogo.titulo}"></td>
+                            <td th:text="${jogo.genero}"></td>
+                            <td th:text="${jogo.estudio}"></td>
+
+                            <td class="text-center">
+                                <button class="btn btn-secondary btn-sm btn-visualizar" th:attr="data-id=${jogo.id}">
+                                    Visualizar
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <a th:href="@{/jogos/{id}/edit(id=${jogo.id})}" class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                            </td>
+
+                            <td class="text-center">
+                                <form th:action="@{/jogos/{id}(id=${jogo.id})}" method="post"
+                                    class="delete-form d-inline">
+
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button class="btn btn-danger btn-sm" type="submit">
+                                        Excluir
                                     </button>
-                                </td>
-
-                                <td class="text-center">
-                                    <a th:href="@{/jogos/{id}/edit(id=${jogo.id})}" class="btn btn-info btn-sm">
-                                        Editar
-                                    </a>
-                                </td>
-
-                                <td class="text-center">
-                                    <form th:action="@{/jogos/{id}(id=${jogo.id})}" method="post"
-                                        class="delete-form d-inline">
-
-                                        <input type="hidden" name="_method" value="delete">
-                                        <button class="btn btn-danger btn-sm" type="submit">
-                                            Excluir
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Toast de mensagens -->
-                <div th:replace="~{_fragments/toast :: toast(${message})}"></div>
-
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </main>
-    </body>
 
-    <!-- add the script to modal -->
+            <!-- Implementando o Modal -->
+            <div class="modal fade" id="modalJogo" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Detalhes do Jogo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Título:</strong> <span id="modal-titulo"></span></p>
+                            <p><strong>Gênero:</strong> <span id="modal-genero"></span></p>
+                            <p><strong>Estúdio:</strong> <span id="modal-estudio"></span></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--  Fim - Modal -->
+
+            <!-- Toast de mensagens -->
+            <div th:replace="~{_fragments/toast :: toast(${message})}"></div>
+
+        </div>
+    </main>
+
+    <!-- importando os JS's -->
     <script th:src="@{/js/modal.js}"></script>
-    <!-- event listener to show the modal before submit -->
-    <script>
-        document.querySelectorAll('.delete-form').forEach(form => {
-            form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const confirm = await showConfirmModal("Confirme", "Deseja excluir esse Inimigo?");
-                if (confirm) {
-                    form.submit();
-                }
-            })
-        })
-    </script>
+    <script th:src="@{/js/jogo-visualizar.js}"></script>
+    <script th:src="@{/js/conf-del-jogo.js}"></script>
+</body>
 
-    </html>
+</html>
