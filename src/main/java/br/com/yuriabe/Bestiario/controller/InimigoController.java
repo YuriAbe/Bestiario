@@ -6,6 +6,7 @@ import br.com.yuriabe.Bestiario.repository.JogoRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page; // Import para a paginação
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,10 +31,17 @@ public class InimigoController {
     @Autowired
     private JogoRepository jogoRepository; // Mantido para popular o dropdown de Jogos
 
+    // ADICIONANDO PÁGINAÇÃO COM O NOVO CÓDIGO
     @GetMapping
-    public String index(Model model) {
-        // Agora retorna uma lista de DTOs
-        model.addAttribute("inimigos", inimigoService.findAll());
+    public String index(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        Page<InimigoDTO> pagina = inimigoService.findPage(page, size);
+
+        model.addAttribute("pagina", pagina);
+        model.addAttribute("inimigos", pagina.getContent());
+
         return "inimigos/index";
     }
 

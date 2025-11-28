@@ -8,7 +8,9 @@ import br.com.yuriabe.Bestiario.repository.InimigoRepository;
 import br.com.yuriabe.Bestiario.repository.JogoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +46,8 @@ public class InimigoService {
 
         InimigoModel model = new InimigoModel();
 
-        // ❌ Nunca setar ID no create, ✔️ Só seta ID se não for null (ou seja, no UPDATE)
+        // ❌ Nunca setar ID no create, ✔️ Só seta ID se não for null (ou seja, no
+        // UPDATE)
         if (dto.getId() != null) {
             model.setId(dto.getId());
         }
@@ -125,5 +128,13 @@ public class InimigoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Inimigo não encontrado com ID: " + id));
 
         inimigoRepository.delete(inimigo);
+    }
+
+    // ADCIONANDO A PAGINAÇÃO
+    public Page<InimigoDTO> findPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("nome").ascending());
+
+        return inimigoRepository.findAll(pageable)
+                .map(this::toDTO);
     }
 }
