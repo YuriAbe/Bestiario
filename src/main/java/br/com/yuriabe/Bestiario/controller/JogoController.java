@@ -91,23 +91,6 @@ public class JogoController {
      * We do it using the annotations @PathVariable and @ModelAttribute
      * The redirect attributes is used to show a message
      */
-    // @PutMapping("/{id}")
-    // public String update(@PathVariable long id,
-    // @Valid @ModelAttribute("jogo") JogoModel jogoModel,
-    // RedirectAttributes redirectAttributes) {
-    // // try to retrive the Product informed
-    // var found = jogoRepository.findById(id).orElseThrow(
-    // () -> new ResourceNotFoundException("Jogo não encontrado!"));
-    // // update the values
-    // found.setTitulo(jogoModel.getTitulo());
-    // // save
-    // jogoRepository.save(found);
-    // // add the flash attributes, available once in response.
-    // redirectAttributes.addFlashAttribute("message", "Jogo atualizado com
-    // sucesso!");
-    // // redirects to main page of the products
-    // return "redirect:/jogos";
-    // }
 
     @PutMapping("/{id}")
     public String update(@PathVariable long id,
