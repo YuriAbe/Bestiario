@@ -17,6 +17,14 @@
  parameter 'content'. This parameter will be
  replaced in subpages -->
     <div class="container" th:fragment="layout(content)">
+        <!-- Adicionando autenticação -->
+        <div sec:authorize="isAuthenticated()">
+            <p><strong>Usuário logado:</strong> <span sec:authentication="name"></span></p>
+            <p><strong>Roles:</strong> <span sec:authentication="principal.authorities"></span></p>
+            <p><strong>Objeto completo:</strong> <span sec:authentication="principal"></span></p>
+        </div>
+        <!-- Fim - Autenticação -->
+
         <header class="bg-primary text-white p-2">
             <h1>Bestiarius - Crie sua coleção de monstros!</h1>
         </header>
@@ -26,6 +34,19 @@
                 <li><a class="nav-link" th:href="@{/inimigos}">Inimigos</a></li>
                 <li><a class="nav-link" th:href="@{/jogos}">Jogos</a></li>
             </ul>
+
+            <ul class="navbar-nav ms-auto">
+                <li sec:authorize="isAuthenticated()">
+                    <span sec:authentication="name"></span>
+                    <form th:action="@{/logout}" method="post">
+                        <button class="btn btn-warning">Sair</button>
+                    </form>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-primary" th:href="@{/login}">Entrar</a>
+                </li>
+            </ul>
+
         </nav>
         <!-- the specific content goes here! -->
         <main th:replace="${content}">
