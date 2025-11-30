@@ -84,6 +84,21 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- Configurando o flyway para ser possível usá-lo no terminal com o maven -->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>9.22.3</version>
+				<configuration>
+					<url>jdbc:postgresql://localhost:5432/bestiario</url>
+					<user>postgres</user>
+					<password>postdba</password>
+					<schemas>
+						<schema>public</schema>
+					</schemas>
+					<cleanDisabled>false</cleanDisabled>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>

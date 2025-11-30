@@ -16,5 +16,5 @@ spring:
             ddl-auto: none
         show-sql: true
     flyway:
-        enabled: true
+        enabled: none
         locations: classpath:db/migration
