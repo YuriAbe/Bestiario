@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+
+#header {
+    background: linear-gradient(to bottom right, #0c001b, #4906a0);
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#navbar {
+    font-weight: bold;
+}
+
+#navbar .nav-link:hover {
+    color: #7200dd;
+}
+
+#navbar .btn {
+    background: #15022e;
+    color: white;
+    border: none;
+}
+
+#navbar .btn:hover {
+    background: #4e06a0;
+}
+
+#conteudo {
+    background: #272727;
+}
+
+#register-btn {
+    background: #15022e;
+    border: none;
+}
+
+#register-btn:hover {
+    background: #4e06a0;
+}
+
+#rodape small:hover {
+    color: #4e06a0;
+    width: 100%;
+    background: #0c001b;
+}
