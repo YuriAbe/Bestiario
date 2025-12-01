@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{_layouts/base :: head(~{::title})}">
+    <title th:fragment="title">Registrar Novo Usuário</title>
+</head>
+
+<body>
+
+    <main th:replace="~{_layouts/base :: layout(~{::content})}">
+        <h1 class="text-primary">Bem vindo, ao Bestiárius!</h1>
+
+        <div th:fragment="content" class="container mt-5">
+            <h2 class="text-primary">Criar Conta</h2>
+
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+            <form th:action="@{/register}" method="post" th:object="${user}">
+
+                <div class="mb-3">
+                    <label class="form-label">Usuário</label>
+                    <input class="form-control" th:field="*{username}">
+                    <small class="text-danger" th:errors="*{username}"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Senha</label>
+                    <input type="password" class="form-control" th:field="*{password}">
+                    <small class="text-danger" th:errors="*{password}"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Confirmar Senha</label>
+                    <input type="password" class="form-control" th:field="*{confirmPassword}" id="confirmPassword"
+                        required>
+                    <small id="confirmPassError" class="text-danger d-none">As senhas não coincidem.</small>
+                </div>
+
+                <button class="btn btn-primary w-100">Registrar</button>
+            </form>
+
+            <!-- Toast de mensagens -->
+            <div th:replace="~{_fragments/toast :: toast(${message})}"></div>
+        </div>
+
+    </main>
+
+    <!-- importando os JS's -->
+    <script th:src="@{/js/modal.js}"></script>
+    <script th:src="@{/js/conferir-senha.js}"></script>
+</body>
+
+</html>

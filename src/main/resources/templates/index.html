@@ -15,10 +15,20 @@
                     <!-- <img th:src="@{/img/spring-icon.svg}" style="width: 240px" class="p-2"> -->
                     <h2 class="text-center">Bem vindos!</h2>
                     <p>Esse será nosso futuro bestiário!</p>
+
+                    <a href="/register" class="btn btn-primary btn-lg">
+                        Criar Conta
+                    </a>
                 </div>
             </div>
+
+            <!-- Toast de mensagens -->
+            <div th:replace="~{_fragments/toast :: toast(${message})}"></div>
         </div>
     </main>
+
+        <!-- importando os JS's -->
+    <script th:src="@{/js/modal.js}"></script>
 </body>
 
 </html>
